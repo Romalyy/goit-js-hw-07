@@ -1,36 +1,44 @@
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
+ // Change code below this line
 
 const gallery = document.querySelector('.gallery');
 
 
-const galleryMarkup = createGallery(galleryItems);
+// const galleryMarkup = createGallery(galleryItems);
 
-gallery.insertAdjacentHTML("beforeend", galleryMarkup);
-gallery.addEventListener('click', galleryItemClick)
+// gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+gallery.addEventListener('click', galleryItemClick);
 
-function createGallery(images) {
-    return images.map(({ preview, original, description }) => { 
-        return `<div class="gallery__item">
-          <a class="gallery__link" 
-            href="${original}">
-              <img class="gallery__image" 
-                src="${preview}" 
-                data-source="${original}" 
-                alt="${description}" />
+  (function createGallery() {
+const itemMarkup = galleryItems
+    .map(({ original, preview, description }) => {
+      return `
+    <div class="gallery__item">
+        <a class="gallery__link" href="${original}">
+            <img
+                class="gallery__image"
+                src="${preview}"
+                data-source="${original}"
+                alt="${description}"
+            />
         </a>
-      </div>`;
-    }).join('');
-}
+    </div>
+    `;
+    })
+    .join("");
+  gallery.insertAdjacentHTML("beforeend", itemMarkup);
+
+  })();
 
 function galleryItemClick(e) {
-  if (!e.target.classList.contains('gallery__item')) {
+  e.preventDefault();
+  if (!e.target.classList.contains('gallery__image')) {
         return ;
   }
-  const basicLightbox = e.target.dataset.source;
+  let basic = e.target.dataset.source;
   const instance = basicLightbox.create(`
-    <img src="${original}" width="800" height="600">
-`)
+    <img src="${basic}" width="800" height="600">
+`);
 
   instance.show();
 
@@ -76,14 +84,14 @@ function galleryItemClick(e) {
 //   );
 //   modal.show();
 
-//   if (modal.visible()) {
-//     window.addEventListener("keydown", onPressKeyESC);
-//   }
+//   // if (modal.visible()) {
+//   //   window.addEventListener("keydown", onPressKeyESC);
+//   // }
 
-//   function onPressKeyESC(e) {
-//     if (e.code === "Escape") {
-//       modal.close();
-//       window.removeEventListener("keydown", onPressKeyESC);
-//     }
-//   }
+//   // function onPressKeyESC(e) {
+//   //   if (e.code === "Escape") {
+//   //     modal.close();
+//   //     window.removeEventListener("keydown", onPressKeyESC);
+//   //   }
+//   // }
 // }
