@@ -35,9 +35,9 @@ function galleryItemClick(e) {
   if (!e.target.classList.contains('gallery__image')) {
         return ;
   }
-  let basic = e.target.dataset.source;
+  let image = e.target.dataset.source;
   const instance = basicLightbox.create(`
-    <img src="${basic}" width="800" height="600">
+    <img src="${image}" width="800" height="600">
 `);
 
   instance.show();
